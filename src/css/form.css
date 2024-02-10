@@ -1,16 +1,17 @@
-#reg,#log{
+/* #reg,#log{
     text-align: right;
     margin-left: 100px;
     margin-right: 100px;
 }
 .form-control{
     text-align: right;
-}
+} */
 
 /* form.css */
 
-/* #reg {
+#reg {
     margin-bottom: 20px;
+    
   }
   
   .form-label {
@@ -27,6 +28,7 @@
     font-size: 14px;
     outline: none;
     margin-left: 543px;
+    text-align: right;
   }
   
   .btn-primary {
@@ -42,4 +44,4 @@
   .btn-primary:hover {
     background-color: #0056b3;
   }
-   */
+  
