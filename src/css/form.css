@@ -1,0 +1,45 @@
+#reg,#log{
+    text-align: right;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+.form-control{
+    text-align: right;
+}
+
+/* form.css */
+
+/* #reg {
+    margin-bottom: 20px;
+  }
+  
+  .form-label {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  
+  .form-control {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+    margin-left: 543px;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+   */
