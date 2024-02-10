@@ -1,23 +1,17 @@
-import { useEffect, useState } from 'react'
-import './api'
+import { NavLink } from "react-router-dom"
+import '../css/search.css'
+import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from "@mui/material"
 import api from "./api"
-import '../css/AllRecipies.css'
-import { Search } from './search'
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
+import { useEffect, useState } from "react"
 
-export const AllRecipies = () => {
+
+export const Search = () => {
     const [users, setUsers] = useState()
     const [categories, setCategories] = useState()
     const [levels, setLevels] = useState()
 
-
-    const [ByUser, setByUser] = useState()
-    const [ByCategory, setByCategory] = useState()
-    const [ByLevel, setByLevel] = useState()
-
-    const [list, setList] = useState()
-
     useEffect(() => {
+
         api.getUsers()
 
             // תופס הצלחה
@@ -44,7 +38,7 @@ export const AllRecipies = () => {
                 console.log(err.message);
             })
 
-        api.getLevels()
+            api.getLevels()
 
             // תופס הצלחה
             .then(x => {
@@ -56,26 +50,10 @@ export const AllRecipies = () => {
             .catch(err => {
                 console.log(err.message);
             })
-
-        api.getRecipe()
-
-            // תופס הצלחה
-            .then(x => {
-
-                // x = האובייקט שחזר מהשרת
-                // data הנתונים נמצאים בתוך 
-                console.log(x.status);
-                setList(x.data)
-            })
-            // תופס כשלון
-            .catch(err => {
-                console.log(err.message);
-            })
-        debugger
     }, [])
 
-
     return <>
+
         <div>
             <FormControl sx={{ m: 1, minWidth: 250 }}>
                 <InputLabel >חיפוש מתכון על פי עורך</InputLabel>
@@ -96,7 +74,7 @@ export const AllRecipies = () => {
                 </Select>
                 {/* <FormHelperText>With label + helper text</FormHelperText> */}
             </FormControl>
-
+        
             <FormControl sx={{ m: 1, minWidth: 250 }}>
                 <InputLabel >חיפוש מתכון על פי קטגוריה</InputLabel>
                 <Select
@@ -116,7 +94,7 @@ export const AllRecipies = () => {
                 </Select>
                 {/* <FormHelperText>With label + helper text</FormHelperText> */}
             </FormControl>
-
+        
             <FormControl sx={{ m: 1, minWidth: 250 }}>
                 <InputLabel >חיפוש מתכון על פי רמת קושי</InputLabel>
                 <Select
@@ -138,31 +116,9 @@ export const AllRecipies = () => {
             </FormControl>
         </div>
 
-        <div className="recipe-container">
-            {list && list.map(x => {
-                if ((x.userId === ByUser || !ByUser) && (x.categoryId === ByCategory || !ByCategory) && (x.levelId === ByLevel || !ByLevel)) {
-                    return (
-                        <div key={x.id} className={`recipe-card ${x.categoryName}`}>
-                            <p className="recipe-detail">{x.name}</p>
-                            <p className="recipe-detail">{x.userName}</p>
-                            <img className="recipe-image" src={`${process.env.PUBLIC_URL}/images/${x.pic}`} alt="Recipe" />
-                        </div>
-                    );
-                } else {
-                    return null;
-                }
-            })}
-        </div>
+
+
 
     </>
 }
 
-
-{/* <p className="recipe-detail">{x.preparationTime}</p> */ }
-{/* <p className="recipe-detail">{x.userId}</p> */ }
-{/* <p className="recipe-detail">{x.categoryId}</p> */ }
-{/* <p className="recipe-detail">{x.categoryName}</p> */ }
-{/* <p className="recipe-detail">{x.levelId}</p> */ }
-{/* <p className="recipe-detail">{x.note}</p> */ }
-{/* <p className="recipe-instructions">{x.instructions}</p> */ }
-{/* <button onClick={() => send(x.id)}>show details</button> */ }

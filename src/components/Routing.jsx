@@ -5,6 +5,9 @@ import { Login } from "./login"
 import { Nav } from "./Nav"
 import { AllRecipies } from "./AllRecipies"
 import { MyDetails } from "./MyDetails"
+import { ByLevel } from "./ByLevel"
+import { ByCategory } from "./ByCategory"
+import { ByUser } from "./ByUser"
 
 export const Routing=()=>{
     return<>
@@ -16,6 +19,9 @@ export const Routing=()=>{
         <Route path="Login" element={<Login></Login>}></Route>
         <Route path="MyDetails" element={<MyDetails></MyDetails>}></Route>
         <Route path="AllRecipies" element={<AllRecipies></AllRecipies>}></Route>
+        <Route path="ByLevel" element={<ByLevel></ByLevel>}></Route>
+        <Route path="ByCategory" element={<ByCategory></ByCategory>}></Route>
+        <Route path="ByUser" element={<ByUser></ByUser>}></Route>
     </Routes>
     </>
 }
