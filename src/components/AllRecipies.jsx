@@ -6,88 +6,82 @@ import { Search } from './search'
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 
 export const AllRecipies = () => {
+
+    // המשתנים שמתוכם נבחר את החיפוש
     const [users, setUsers] = useState()
     const [categories, setCategories] = useState()
     const [levels, setLevels] = useState()
 
-
+    // המשתנים השומרים את הבחירה שהמשתמש עשה
     const [ByUser, setByUser] = useState()
     const [ByCategory, setByCategory] = useState()
     const [ByLevel, setByLevel] = useState()
 
+    // אוסף כל המתכונים
     const [list, setList] = useState()
 
+    // עדכון שם העורך שנבחר 
+    const changeUser = (event) => {
+        setByUser(event.target.value);
+    };
+    // עדכון שם הקטגוריה שנבחרה
+    const changeCategory = (event) => {
+        setByCategory(event.target.value);
+    };
+    // עדכון שם הרמה שנבחרה
+    const changeLevel = (event) => {
+        setByLevel(event.target.value);
+    };
+
+    // פונקציה המתממשת בעת טעינת הקומפוננטה
     useEffect(() => {
+
+        // שליפת כל שמות המשתמשים
         api.getUsers()
-
             // תופס הצלחה
-            .then(x => {
-
-
-                setUsers(x.data)
-            })
+            .then(x => { setUsers(x.data) })
             // תופס כשלון
-            .catch(err => {
-                console.log(err.message);
-            })
+            .catch(err => { console.log(err.message); })
 
+        // שליפת כל הקטגוריות
         api.getCategories()
 
             // תופס הצלחה
-            .then(x => {
-
-
-                setCategories(x.data)
-            })
+            .then(x => { setCategories(x.data) })
             // תופס כשלון
-            .catch(err => {
-                console.log(err.message);
-            })
+            .catch(err => { console.log(err.message); })
 
+        // שליפת כל הרמות
         api.getLevels()
-
             // תופס הצלחה
-            .then(x => {
-
-
-                setLevels(x.data)
-            })
+            .then(x => { setLevels(x.data) })
             // תופס כשלון
-            .catch(err => {
-                console.log(err.message);
-            })
+            .catch(err => { console.log(err.message); })
 
+        // שליפת כל המתכונים
         api.getRecipe()
-
             // תופס הצלחה
-            .then(x => {
-
-                // x = האובייקט שחזר מהשרת
-                // data הנתונים נמצאים בתוך 
-                console.log(x.status);
-                setList(x.data)
-            })
+            .then(x => { setList(x.data) })
             // תופס כשלון
-            .catch(err => {
-                console.log(err.message);
-            })
-        debugger
+            .catch(err => { console.log(err.message); })
     }, [])
 
 
     return <>
         <div>
+            {/* חיפוש על פי עורך  */}
             <FormControl sx={{ m: 1, minWidth: 250 }}>
                 <InputLabel >חיפוש מתכון על פי עורך</InputLabel>
                 <Select
                     // labelId="demo-simple-select-helper-label"
                     id="demo-simple-select-helper"
                     label="חיפוש מתכון על פי עורך"
-                // onChange={handleChange}
+                    onChange={(e) => changeUser(e)}
                 >
                     <MenuItem value="">
                         <em>None</em>
                     </MenuItem>
+                    {/* שליפת שמות העורכים */}
                     {users && users.map(x =>
                         <MenuItem value={x.id}>
                             {x.firstName} {x.lastName}
@@ -97,17 +91,19 @@ export const AllRecipies = () => {
                 {/* <FormHelperText>With label + helper text</FormHelperText> */}
             </FormControl>
 
+            {/*  חיפוש על פי קטגוריה*/}
             <FormControl sx={{ m: 1, minWidth: 250 }}>
                 <InputLabel >חיפוש מתכון על פי קטגוריה</InputLabel>
                 <Select
                     // labelId="demo-simple-select-helper-label"
                     id="demo-simple-select-helper"
                     label="חיפוש מתכון על פי קטגוריה"
-                // onChange={handleChange}
+                    onChange={(e) => changeCategory(e)}
                 >
                     <MenuItem value="">
                         <em>None</em>
                     </MenuItem>
+                    {/* שליפת כל הקטגוריות */}
                     {categories && categories.map(x =>
                         <MenuItem value={x.id}>
                             {x.name}
@@ -117,17 +113,19 @@ export const AllRecipies = () => {
                 {/* <FormHelperText>With label + helper text</FormHelperText> */}
             </FormControl>
 
+            {/* חיפוש מתכון על פי רמת קושי */}
             <FormControl sx={{ m: 1, minWidth: 250 }}>
                 <InputLabel >חיפוש מתכון על פי רמת קושי</InputLabel>
                 <Select
                     // labelId="demo-simple-select-helper-label"
                     id="demo-simple-select-helper"
                     label="חיפוש מתכון על פי רמת קושי"
-                // onChange={handleChange}
+                    onChange={(e) => changeLevel(e)}
                 >
                     <MenuItem value="">
                         <em>None</em>
                     </MenuItem>
+                    {/* שליפת כל הרמות */}
                     {levels && levels.map(x =>
                         <MenuItem value={x.id}>
                             {x.name}
@@ -138,6 +136,7 @@ export const AllRecipies = () => {
             </FormControl>
         </div>
 
+        {/* הצגת המתכונים לפי בחירת המשתמש */}
         <div className="recipe-container">
             {list && list.map(x => {
                 if ((x.userId === ByUser || !ByUser) && (x.categoryId === ByCategory || !ByCategory) && (x.levelId === ByLevel || !ByLevel)) {
