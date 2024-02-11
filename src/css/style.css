@@ -35,15 +35,15 @@ p{
 
 /* עיצוב כללי לסרגל */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  /*הסרגל div עיצוב  */
-  .nav {
-   /* background: linear-gradient(to right, #ff6666, #ff9933, #ffff66, #66ff66, #66ccff, #9933ff, #397693, #49ab7a, #e379c2,  #e3797e, #ff6666); */
-        /* background: linear-gradient(to right, 
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/*הסרגל div עיצוב  */
+.nav {
+  /* background: linear-gradient(to right, #ff6666, #ff9933, #ffff66, #66ff66, #66ccff, #9933ff, #397693, #49ab7a, #e379c2,  #e3797e, #ff6666); */
+  /* background: linear-gradient(to right, 
           #ffe6ea, #ffd9e0, #ffccd6, #ffbfcc, #ffb2c2, #ffa5b8,
           #ff99ae, #ff8ca4, #ff7f9a, #ff7290, #ff6586, #ff587c,
           #ff4c72, #ff3f68, #ff326e, #ff2564, #ff185a, #ff0b50,
@@ -54,72 +54,79 @@ p{
           #9f00ff, #9300ff, #8700ff, #7b00ff
          ); */
 
-         background: linear-gradient(to right,
-    #fff1f3, #ffe8ec, #ffdee4, #ffd6dc, #ffced4, #ffc6cc,
-    #ffbec4, #ffb6bc, #ffadb4, #ffa5ac, #ff9da4, #ff959c,
-    #ff8d94, #ff858c, #ff7d84, #ff757c, #ff6d74, #ff656c,
-    #ff5d64, #ff556c, #ff4d74, #ff457c, #ff3d84, #ff358c,
-    #ff2d94, #ff259c, #ff1d9f, #ff15a7, #ff0dad, #ff05b5,
-    #ff00bd, #f300c5, #e600cd, #d900d5, #cc00dd, #bf00e5,
-    #b200ed, #a500f5, #9900fd, #8c00ff, #7f00ff, #7200ff,
-    #6500ff, #5800ff, #4c00ff, #3f00ff, #3200ff, #2500ff,
-    #1800ff, #0b00ff, #0005ff, #0010ff, #001bff, #0026ff,
-    #0031ff, #003cff, #0047ff, #0052ff, #005dff, #0068ff,
-    #0073ff, #007eff, #0089ff, #0094ff, #009fff, #00aaff,
-    #00b5ff, #00c0ff, #00cbff, #00d6ff, #00e1ff, #00ecff,
-    #00f7ff, #00ffff, #00f3ff, #00e7ff, #00dbff, #00cfff,
-    #00c3ff, #00b7ff, #00abff, #009fff, #0093ff, #0087ff,
-    #007bff, 
-    #eaf8ff
-);
-         
-    
-    /* מהירות מעבר הצבעים */
-    transition: background-color 5s;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 100px; /* Added spacing on the sides */
-    animation: moveGradient 10s linear infinite; /* Added animation */
-    background-size: 600% auto; /* Added background size */
-  }
-  
-  /* עיצוב המילים שבסרגל */
-  .link {
-    text-decoration: none;
-    color: #000000;
-    font-weight: bold;
-    margin-right: 10px;
-    font-size: 30px; /* Increased font size */
-    text-decoration: none;
-    border-bottom: 2px solid transparent; /* Added underline */
-  }
-  
- /* עיצוב המילים שבסרגל */
- /*בלבד  nav וכן עיצוב העובד על */
+  background: linear-gradient(to right,
+      #fff1f3, #ffe8ec, #ffdee4, #ffd6dc, #ffced4, #ffc6cc,
+      #ffbec4, #ffb6bc, #ffadb4, #ffa5ac, #ff9da4, #ff959c,
+      #ff8d94, #ff858c, #ff7d84, #ff757c, #ff6d74, #ff656c,
+      #ff5d64, #ff556c, #ff4d74, #ff457c, #ff3d84, #ff358c,
+      #ff2d94, #ff259c, #ff1d9f, #ff15a7, #ff0dad, #ff05b5,
+      #ff00bd, #f300c5, #e600cd, #d900d5, #cc00dd, #bf00e5,
+      #b200ed, #a500f5, #9900fd, #8c00ff, #7f00ff, #7200ff,
+      #6500ff, #5800ff, #4c00ff, #3f00ff, #3200ff, #2500ff,
+      #1800ff, #0b00ff, #0005ff, #0010ff, #001bff, #0026ff,
+      #0031ff, #003cff, #0047ff, #0052ff, #005dff, #0068ff,
+      #0073ff, #007eff, #0089ff, #0094ff, #009fff, #00aaff,
+      #00b5ff, #00c0ff, #00cbff, #00d6ff, #00e1ff, #00ecff,
+      #00f7ff, #00ffff, #00f3ff, #00e7ff, #00dbff, #00cfff,
+      #00c3ff, #00b7ff, #00abff, #009fff, #0093ff, #0087ff,
+      #007bff,
+      #eaf8ff);
+
+
+  /* מהירות מעבר הצבעים */
+  transition: background-color 5s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 100px;
+  /* Added spacing on the sides */
+  animation: moveGradient 10s linear infinite;
+  /* Added animation */
+  background-size: 600% auto;
+  /* Added background size */
+}
+
+/* עיצוב המילים שבסרגל */
+.link {
+  text-decoration: none;
+  color: #000000;
+  font-weight: bold;
+  margin-right: 10px;
+  font-size: 30px;
+  /* Increased font size */
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  /* Added underline */
+}
+
+/* עיצוב המילים שבסרגל */
+/*בלבד  nav וכן עיצוב העובד על */
 /* משנה בסרגל את הקומפוננטה שנמצאים בה כרגע */
-  .link.active {
-    color: #de1a1a;
-    border-bottom-color:  #de1a1a; /* Added underline color */
-    font-size: 20px;
-  }
-  
-  /* שם המשתמש או אנונימי */
-  .nav p {
-    margin-right: 10px;
-  }
-  /* שם המשתמש או אנונימי */
-  #roleName{
-    margin-left: 105px;
-    color: #de1a1a;
+.link.active {
+  color: #de1a1a;
+  border-bottom-color: #de1a1a;
+  /* Added underline color */
+  font-size: 20px;
+}
+
+/* שם המשתמש או אנונימי */
+.nav p {
+  margin-right: 10px;
+}
+
+/* שם המשתמש או אנונימי */
+#roleName {
+  margin-left: 105px;
+  color: #de1a1a;
+}
+
+/* Animation keyframes */
+@keyframes moveGradient {
+  0% {
+    background-position: 0% 50%;
   }
 
-  /* Animation keyframes */
-  @keyframes moveGradient {
-    0% {
-      background-position: 0% 50%;
-    }
-    100% {
-      background-position: 100% 50%;
-    }
+  100% {
+    background-position: 100% 50%;
   }
+}

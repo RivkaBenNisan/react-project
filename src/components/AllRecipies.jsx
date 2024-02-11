@@ -2,8 +2,19 @@ import { useEffect, useState } from 'react'
 import './api'
 import api from "./api"
 import '../css/AllRecipies.css'
-import { Search } from './search'
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
+import { Box, ButtonBase, FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material'
+// import styled from 'styled-components'
+
+
+
+
+// import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import { useNavigate } from 'react-router'
+
+
+
+
 
 export const AllRecipies = () => {
 
@@ -19,19 +30,6 @@ export const AllRecipies = () => {
 
     // אוסף כל המתכונים
     const [list, setList] = useState()
-
-    // עדכון שם העורך שנבחר 
-    const changeUser = (event) => {
-        setByUser(event.target.value);
-    };
-    // עדכון שם הקטגוריה שנבחרה
-    const changeCategory = (event) => {
-        setByCategory(event.target.value);
-    };
-    // עדכון שם הרמה שנבחרה
-    const changeLevel = (event) => {
-        setByLevel(event.target.value);
-    };
 
     // פונקציה המתממשת בעת טעינת הקומפוננטה
     useEffect(() => {
@@ -67,6 +65,80 @@ export const AllRecipies = () => {
     }, [])
 
 
+    const ImageButton = styled(ButtonBase)(({ theme }) => ({
+        position: 'relative',
+        height: 200,
+        [theme.breakpoints.down('sm')]: {
+            width: '100% !important', // Overrides inline-style
+            height: 100,
+        },
+        '&:hover, &.Mui-focusVisible': {
+            zIndex: 1,
+            '& .MuiImageBackdrop-root': {
+                opacity: 0.15,
+            },
+            '& .MuiImageMarked-root': {
+                opacity: 0,
+            },
+            '& .MuiTypography-root': {
+                border: '4px solid currentColor',
+            },
+        },
+    }));
+
+    const ImageSrc = styled('span')({
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center 100%',
+    });
+
+    const Image = styled('span')(({ theme }) => ({
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: theme.palette.common.white,
+    }));
+
+    const ImageBackdrop = styled('span')(({ theme }) => ({
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        backgroundColor: theme.palette.common.black,
+        opacity: 0.2,
+        transition: theme.transitions.create('opacity'),
+    }));
+
+    const ImageMarked = styled('span')(({ theme }) => ({
+        height: 3,
+        width: 18,
+        backgroundColor: theme.palette.common.white,
+        position: 'absolute',
+        bottom: -1,
+        left: 'calc(50% - 9px)',
+        transition: theme.transitions.create('opacity'),
+    }));
+
+    const nav = useNavigate()
+
+    function send(event) {
+        console.log(event)
+        nav(`/RecipeDetails/${event.id}`)
+
+    }
+
+
+
+
     return <>
         <div>
             {/* חיפוש על פי עורך  */}
@@ -76,10 +148,11 @@ export const AllRecipies = () => {
                     // labelId="demo-simple-select-helper-label"
                     id="demo-simple-select-helper"
                     label="חיפוש מתכון על פי עורך"
-                    onChange={(e) => changeUser(e)}
+                    //שמירת הבחירה של שם העורך 
+                    onChange={(e) => setByUser(e.target.value)}
                 >
                     <MenuItem value="">
-                        <em>None</em>
+                        <em>כל העורכים</em>
                     </MenuItem>
                     {/* שליפת שמות העורכים */}
                     {users && users.map(x =>
@@ -98,10 +171,11 @@ export const AllRecipies = () => {
                     // labelId="demo-simple-select-helper-label"
                     id="demo-simple-select-helper"
                     label="חיפוש מתכון על פי קטגוריה"
-                    onChange={(e) => changeCategory(e)}
+                    //שמירת הבחירה של קטגוריה  
+                    onChange={(e) => setByCategory(e.target.value)}
                 >
                     <MenuItem value="">
-                        <em>None</em>
+                        <em>כל הקטגוריות</em>
                     </MenuItem>
                     {/* שליפת כל הקטגוריות */}
                     {categories && categories.map(x =>
@@ -120,10 +194,11 @@ export const AllRecipies = () => {
                     // labelId="demo-simple-select-helper-label"
                     id="demo-simple-select-helper"
                     label="חיפוש מתכון על פי רמת קושי"
-                    onChange={(e) => changeLevel(e)}
+                    // שמירת הבחירה של רמת קושי 
+                    onChange={(e) => setByLevel(e.target.value)}
                 >
                     <MenuItem value="">
-                        <em>None</em>
+                        <em>כל הרמות</em>
                     </MenuItem>
                     {/* שליפת כל הרמות */}
                     {levels && levels.map(x =>
@@ -132,7 +207,6 @@ export const AllRecipies = () => {
                         </MenuItem>
                     )}
                 </Select>
-                {/* <FormHelperText>With label + helper text</FormHelperText> */}
             </FormControl>
         </div>
 
@@ -144,7 +218,37 @@ export const AllRecipies = () => {
                         <div key={x.id} className={`recipe-card ${x.categoryName}`}>
                             <p className="recipe-detail">{x.name}</p>
                             <p className="recipe-detail">{x.userName}</p>
-                            <img className="recipe-image" src={`${process.env.PUBLIC_URL}/images/${x.pic}`} alt="Recipe" />
+
+                            <ImageButton  onClick={() => { send(x) }}
+                                focusRipple
+                                key={x.id}
+                            >
+                                <ImageSrc style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/${x.pic})` }} />
+                                <ImageBackdrop className="MuiImageBackdrop-root" />
+                                <Image>
+                                    <Typography
+                                        component="span"
+                                        variant="subtitle1"
+                                        color="inherit"
+                                        sx={{
+                                            position: 'relative',
+                                            p: 4,
+                                            pt: 2,
+                                            pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
+                                        }}
+                                    >
+                                        פרטי המתכון
+                                        <ImageMarked className="MuiImageMarked-root" />
+                                    </Typography>
+                                </Image>
+                            </ImageButton>
+
+
+
+
+
+
+                            {/* <img className="recipe-image" src={`${process.env.PUBLIC_URL}/images/${x.pic}`} alt="Recipe" /> */}
                         </div>
                     );
                 } else {
@@ -165,3 +269,19 @@ export const AllRecipies = () => {
 {/* <p className="recipe-detail">{x.note}</p> */ }
 {/* <p className="recipe-instructions">{x.instructions}</p> */ }
 {/* <button onClick={() => send(x.id)}>show details</button> */ }
+
+
+
+
+
+
+
+
+// import * as React from 'react';
+// import { styled } from '@mui/material/styles';
+// import Box from '@mui/material/Box';
+// import ButtonBase from '@mui/material/ButtonBase';
+// import Typography from '@mui/material/Typography';
+
+
+
