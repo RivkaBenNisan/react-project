@@ -8,6 +8,7 @@ import { MyDetails } from "./MyDetails"
 import { RecipeDetails } from "./RecipeDetails"
 import { CommentsToRecipe } from "./CommentsToRecipe"
 import { AddCommentToRecipe } from "./AddCommentToRecipe"
+import { MyRecipies } from "./MyRecipies"
 
 
 export const Routing = () => {
@@ -22,13 +23,13 @@ export const Routing = () => {
             <Route path="AllRecipies" element={<AllRecipies></AllRecipies>}></Route>
             <Route path="RecipeDetails" element={<RecipeDetails></RecipeDetails>}>
                 <Route path="CommentsToRecipe" element={<CommentsToRecipe></CommentsToRecipe>}>
-                    <Route path="AddCommentToRecipe" element={<AddCommentToRecipe></AddCommentToRecipe>}></Route>
-                </Route>
+                    <Route path="AddCommentToRecipe" element={<AddCommentToRecipe></AddCommentToRecipe>}></Route> 
+               </Route>
             </Route>
-            {/* <Route path="Welcome/:name/:pass" element={<Welcome></Welcome>}></Route> */}
+            <Route path="MyRecipies" element={<MyRecipies></MyRecipies>}></Route>
         </Routes>
     </>
 }
 
 
-//<Route path="More/:name/:code/:price/:pic" element={<More></More>}></Route>
+

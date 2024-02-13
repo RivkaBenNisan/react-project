@@ -4,87 +4,109 @@ import api from './api';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../redux/action';
-import '../css/bootstrap.min.css'
+// import '../css/bootstrap.min.css'
 // import '../css/Login.css'
 import '../css/form.css'
 
 export const Login = () => {
 
-    //שליפת המשתמש הנוכחי
-    const user = useSelector(u => { return u.user })
-    //משתנה שיעדכן מי המשתמש הנוכחי
-    const dis = useDispatch()
-    //משתנה המנתב לקומפוננטה הבאה
-    const nav = useNavigate()
-    //העברת נתונים מהטופס על ידי מצביע
-    const emailRef = useRef()
-    const passRef = useRef()
-    // const [user, setUser] = useState()
+  //שליפת המשתמש הנוכחי
+  const user = useSelector(u => { return u.user })
+  //משתנה שיעדכן מי המשתמש הנוכחי
+  const dis = useDispatch()
+  //משתנה המנתב לקומפוננטה הבאה
+  const nav = useNavigate()
+  //העברת נתונים מהטופס על ידי מצביע
+  const emailRef = useRef()
+  const passRef = useRef()
+  // const [user, setUser] = useState()
 
-    // פונקציה הבודקת האם המשתמש קיים ומנתבת בהתאם
-    function send() {
-        debugger
-        //קבלת המשתמש לפי מייל וסיסמה
-        api.getUser(emailRef.current.value, passRef.current.value)
-            .then(x => {
-                //אם המשתמש כבר רשום
-                if (x.data) {
-                    console.log(user);
-                    //הנוכחי user שמירת פרטי המשתמש ב
-                    dis(setUser(x.data))
-                    console.log(x.data);
-                    //ניתוב לדף הבית
-                    nav('/Home');
-                }
-                // אם שם המשתמש אינו קיים
-                else
-                    //ניתוב להרשמה
-                    nav(`/Register`);
+  // פונקציה הבודקת האם המשתמש קיים ומנתבת בהתאם
+  function send(event) {
+    event.preventDefault();
+    debugger
+    //קבלת המשתמש לפי מייל וסיסמה
+    api.getUser(emailRef.current.value, passRef.current.value)
+      .then(x => {
+        //אם המשתמש כבר רשום
+        if (x.data) {
+          console.log(user);
+          //הנוכחי user שמירת פרטי המשתמש ב
+          dis(setUser(x.data))
+          console.log(x.data);
+          //ניתוב לדף הבית
+          nav('/Home');
+        }
+        // אם שם המשתמש אינו קיים
+        else
+          //ניתוב להרשמה
+          nav(`/Register`);
 
-            })
-            .catch(err => {
-                console.log(err.message);
-            });
-
-
-    }
-
-    return <>
-        {/* טופס כניסה */}
-        <br></br>
-        <br></br>
-        <div id='log' className='dd'>
-            <label htmlFor={"em"} className='form-label'>Email</label>
-            {/* <br></br> */}
-            <input id={'em'} type='email' placeholder="Email" ref={emailRef} className='form-control'></input>
-        </div>
-        <br></br>
-        <br></br>
-        <div id='log'>
-            <label htmlFor={'pw'} className='form-label'>PassWord</label>
-            {/* <br></br> */}
-            <input type='password' id={'pw'} placeholder="PassWord" ref={passRef} className='form-control'></input>
-        </div>
-        <br></br>
-        <br></br>
-        <button onClick={send}>send</button>
+      })
+      .catch(err => {
+        console.log(err.message);
+      });
 
 
-        {/* <form action="/action_page.php">
-  <div class="mb-3 mt-3">
-    <label for="email" class="form-label">Email:</label>
-    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
-  </div>
-  <div class="mb-3">
-    <label for="pwd" class="form-label">Password:</label>
-    <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd">
-  </div>
-  <div class="form-check mb-3">
-    <label class="form-check-label">
-      <input class="form-check-input" type="checkbox" name="remember"> Remember me
-    </label>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form> */}
-    </>
+  }
+
+  return <>
+
+    {/* טופס כניסה */}
+    <div className="container">
+
+      <div className="login">
+
+        <h1>Login</h1>
+
+        <form onSubmit={send} >
+          <div className="input-box">
+            <input type="email" placeholder="מייל" ref={emailRef} required></input>
+            <i class="fa fa-envelope"></i>
+          </div>
+
+          <div className="input-box">
+            <input type="password" placeholder="סיסמה" ref={passRef} required></input>
+            <i class="fa fa-lock"></i>
+          </div>
+
+
+          <div className="rembar">
+            <input id="rembar" type="checkbox"></input>
+            <label for="rembar">remember me</label>
+          </div>
+
+          <button type='submit'>send</button>
+
+          <div className="links">
+            <a >Forgot password</a>
+            <a >You don't have an account</a>
+          </div>
+
+        </form>
+
+      </div>
+
+    </div >
+
+
+
+
+    {/* <!-- לינקים עבור הוספת מלון --> */}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    {<script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>}
+    {<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"></script>}
+    {<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"></script>}
+
+  </>
 }

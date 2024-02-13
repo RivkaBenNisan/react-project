@@ -73,7 +73,9 @@ export default {
 
     //CommentsToRecepy
     addCommentsToRecepy: (commentsToRecepy) => {
-        return axios.get(`https://localhost:7130/api/CommentsToRecepy`, commentsToRecepy)
+        debugger
+        const r= axios.get(`https://localhost:7130/api/CommentsToRecepy`, commentsToRecepy)
+        return r
     },
 
     getCommentsToRecepy: (recipeId) => {

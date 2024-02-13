@@ -24,6 +24,9 @@ export const AllRecipies = () => {
     const [ByCategory, setByCategory] = useState()
     const [ByLevel, setByLevel] = useState()
 
+
+
+    
     const dis = useDispatch()
 
     // אוסף כל המתכונים

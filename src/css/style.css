@@ -95,7 +95,7 @@ p{
   font-size: 30px;
   /* Increased font size */
   text-decoration: none;
-  border-bottom: 2px solid transparent;
+  border-bottom: 0px solid transparent;
   /* Added underline */
 }
 
@@ -103,10 +103,11 @@ p{
 /*בלבד  nav וכן עיצוב העובד על */
 /* משנה בסרגל את הקומפוננטה שנמצאים בה כרגע */
 .link.active {
-  color: #de1a1a;
-  border-bottom-color: #de1a1a;
+  /* background: #5FBDFF; */
+  color: #054b7d;
+  border-bottom-color: #054b7d;
   /* Added underline color */
-  font-size: 20px;
+  font-size: 38px;
 }
 
 /* שם המשתמש או אנונימי */
