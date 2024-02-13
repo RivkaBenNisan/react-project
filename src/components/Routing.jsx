@@ -5,7 +5,9 @@ import { Login } from "./login"
 import { Nav } from "./Nav"
 import { AllRecipies } from "./AllRecipies"
 import { MyDetails } from "./MyDetails"
-import{RecipeDetails} from "./RecipeDetails"
+import { RecipeDetails } from "./RecipeDetails"
+import { CommentsToRecipe } from "./CommentsToRecipe"
+import { AddCommentToRecipe } from "./AddCommentToRecipe"
 
 
 export const Routing = () => {
@@ -18,7 +20,11 @@ export const Routing = () => {
             <Route path="Login" element={<Login></Login>}></Route>
             <Route path="MyDetails" element={<MyDetails></MyDetails>}></Route>
             <Route path="AllRecipies" element={<AllRecipies></AllRecipies>}></Route>
-            <Route path="RecipeDetails/:id" element={<RecipeDetails></RecipeDetails>}></Route>
+            <Route path="RecipeDetails" element={<RecipeDetails></RecipeDetails>}>
+                <Route path="CommentsToRecipe" element={<CommentsToRecipe></CommentsToRecipe>}>
+                    <Route path="AddCommentToRecipe" element={<AddCommentToRecipe></AddCommentToRecipe>}></Route>
+                </Route>
+            </Route>
             {/* <Route path="Welcome/:name/:pass" element={<Welcome></Welcome>}></Route> */}
         </Routes>
     </>

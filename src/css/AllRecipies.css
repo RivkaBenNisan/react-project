@@ -12,7 +12,8 @@
     border-radius: 5px;
     padding: 20px;
     margin-bottom: 20px;
-  }
+}
+ 
   
   .recipe-card img {
     width: 100%;
@@ -45,3 +46,28 @@
   .קינוחים{
     background-color: chartreuse;
   }
+
+
+
+
+
+
+
+
+
+  .recipe-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.recipe-card {
+    width: calc(33.33% - 20px); /* כחלוקה לשלושה כרטיסים בכל שורה */
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.recipe-card:nth-child(3n+1) {
+    margin-right: 20px; /* עבור כרטיס הראשון בכל שורה, יישאר מרווח מימין */
+    clear: both; /* יגרום לכל קרטיס רביעי להיות בשורה השניה */
+}

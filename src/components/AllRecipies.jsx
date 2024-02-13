@@ -3,14 +3,10 @@ import './api'
 import api from "./api"
 import '../css/AllRecipies.css'
 import { Box, ButtonBase, FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material'
-// import styled from 'styled-components'
-
-
-
-
-// import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router'
+import { useDispatch } from 'react-redux'
+import { chooseRecipe } from '../redux/action'
 
 
 
@@ -27,6 +23,8 @@ export const AllRecipies = () => {
     const [ByUser, setByUser] = useState()
     const [ByCategory, setByCategory] = useState()
     const [ByLevel, setByLevel] = useState()
+
+    const dis = useDispatch()
 
     // אוסף כל המתכונים
     const [list, setList] = useState()
@@ -68,6 +66,11 @@ export const AllRecipies = () => {
     const ImageButton = styled(ButtonBase)(({ theme }) => ({
         position: 'relative',
         height: 200,
+
+        //  display: 'flex',
+        flexDirection: 'column', // Sets the direction to column
+        justifyContent: 'flex-end', // Aligns items to the bottom
+
         [theme.breakpoints.down('sm')]: {
             width: '100% !important', // Overrides inline-style
             height: 100,
@@ -128,16 +131,18 @@ export const AllRecipies = () => {
         transition: theme.transitions.create('opacity'),
     }));
 
+    //ניתוב לקומפוננטת פרטים נוספים
     const nav = useNavigate()
 
+    //פונקציה הנקראת בעת לחיצה על מתכון
     function send(event) {
         console.log(event)
-        nav(`/RecipeDetails/${event.id}`)
+
+        dis(chooseRecipe(event))
+        // ניתוב לקומפוננטת פרטים נוספים
+        nav(`/RecipeDetails`)
 
     }
-
-
-
 
     return <>
         <div>
@@ -184,7 +189,6 @@ export const AllRecipies = () => {
                         </MenuItem>
                     )}
                 </Select>
-                {/* <FormHelperText>With label + helper text</FormHelperText> */}
             </FormControl>
 
             {/* חיפוש מתכון על פי רמת קושי */}
@@ -219,7 +223,7 @@ export const AllRecipies = () => {
                             <p className="recipe-detail">{x.name}</p>
                             <p className="recipe-detail">{x.userName}</p>
 
-                            <ImageButton  onClick={() => { send(x) }}
+                            <ImageButton onClick={() => { send(x) }}
                                 focusRipple
                                 key={x.id}
                             >
@@ -242,12 +246,6 @@ export const AllRecipies = () => {
                                     </Typography>
                                 </Image>
                             </ImageButton>
-
-
-
-
-
-
                             {/* <img className="recipe-image" src={`${process.env.PUBLIC_URL}/images/${x.pic}`} alt="Recipe" /> */}
                         </div>
                     );
@@ -261,19 +259,8 @@ export const AllRecipies = () => {
 }
 
 
-{/* <p className="recipe-detail">{x.preparationTime}</p> */ }
-{/* <p className="recipe-detail">{x.userId}</p> */ }
-{/* <p className="recipe-detail">{x.categoryId}</p> */ }
-{/* <p className="recipe-detail">{x.categoryName}</p> */ }
-{/* <p className="recipe-detail">{x.levelId}</p> */ }
-{/* <p className="recipe-detail">{x.note}</p> */ }
-{/* <p className="recipe-instructions">{x.instructions}</p> */ }
+
 {/* <button onClick={() => send(x.id)}>show details</button> */ }
-
-
-
-
-
 
 
 
