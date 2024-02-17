@@ -216,3 +216,37 @@ a {
   font-weight: 100;
   font-size: 0.7rem;
 }
+
+.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+  color: #fff;
+  font-weight: 100;
+  font-size: 0.7rem;
+}
+/* =================================== */
+#rec_con{
+  width: 800px;
+  
+}
+
+#rec_form{
+  display: grid;
+  grid-template-columns: 2.5% 45% 5% 45% 2.5%;
+}
+.left{
+  grid-column:2/3;
+  
+}
+.right{
+  grid-column: 4/5 ;
+  
+}
+
+.in_label{
+  background-color: #fff;
+  opacity: 0.25;
+  color: #fff;
+}
+.hhhhhhhhhhh{
+  color: #fff;
+}
+

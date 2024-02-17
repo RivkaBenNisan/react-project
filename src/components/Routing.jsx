@@ -9,6 +9,9 @@ import { RecipeDetails } from "./RecipeDetails"
 import { CommentsToRecipe } from "./CommentsToRecipe"
 import { AddCommentToRecipe } from "./AddCommentToRecipe"
 import { MyRecipies } from "./MyRecipies"
+import { AddRecipe } from "./AddRecipe"
+import { Categories } from "./Categories"
+import { Levels } from "./Levels"
 
 
 export const Routing = () => {
@@ -27,6 +30,9 @@ export const Routing = () => {
                </Route>
             </Route>
             <Route path="MyRecipies" element={<MyRecipies></MyRecipies>}></Route>
+            <Route path="AddRecipe" element={<AddRecipe></AddRecipe>}></Route>
+            <Route path="Categories" element={<Categories></Categories>}></Route>
+            <Route path="Levels" element={<Levels></Levels>}></Route>
         </Routes>
     </>
 }

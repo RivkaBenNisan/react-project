@@ -26,7 +26,7 @@ export const AllRecipies = () => {
 
 
 
-    
+
     const dis = useDispatch()
 
     // אוסף כל המתכונים
@@ -145,7 +145,18 @@ export const AllRecipies = () => {
         // ניתוב לקומפוננטת פרטים נוספים
         nav(`/RecipeDetails`)
 
+
     }
+
+
+
+
+
+
+
+
+    ////////////////////////////
+    
 
     return <>
         <div>
@@ -174,7 +185,8 @@ export const AllRecipies = () => {
 
             {/*  חיפוש על פי קטגוריה*/}
             <FormControl sx={{ m: 1, minWidth: 250 }}>
-                <InputLabel >חיפוש מתכון על פי קטגוריה</InputLabel>
+                <InputLabel >חיפוש מתכון על פי קטגוריה
+                </InputLabel>
                 <Select
                     // labelId="demo-simple-select-helper-label"
                     id="demo-simple-select-helper"
@@ -257,6 +269,7 @@ export const AllRecipies = () => {
                 }
             })}
         </div>
+
 
     </>
 }

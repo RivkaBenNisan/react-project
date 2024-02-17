@@ -1,22 +1,24 @@
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import api from "./api"
-import { useEffect, useState } from "react"
+import { styled } from '@mui/material/styles';
+import { ButtonBase, Typography } from "@mui/material"
 import { useNavigate } from "react-router"
 import { chooseRecipe } from "../redux/action"
-import styled from "styled-components"
-import { ButtonBase, Typography } from "@mui/material"
-import '../css/AllRecipies.css'
+
+// import '../css/AllRecipies.css'
 
 
-export const MyRecipies=()=>{
 
-    const user = useSelector(u => { return u.user })
-    const [list,setList]=useState()
+
+
+export const MyRecipies = () => {
     const dis = useDispatch()
+    // אוסף כל המתכונים
+    const [list, setList] = useState()
 
-
-
-
+     //שליפת המשתמש הנוכחי
+     const user = useSelector(u => { return u.user })
 
     // פונקציה המתממשת בעת טעינת הקומפוננטה
     useEffect(() => {
@@ -96,26 +98,30 @@ export const MyRecipies=()=>{
         transition: theme.transitions.create('opacity'),
     }));
 
+    //ניתוב לקומפוננטת פרטים נוספים
+    const nav = useNavigate()
+    //פונקציה הנקראת בעת לחיצה על מתכון
+    function send(event) {
+        console.log(event)
+
+        dis(chooseRecipe(event))
+        // ניתוב לקומפוננטת פרטים נוספים
+        nav(`/RecipeDetails`)
 
 
-     //ניתוב לקומפוננטת פרטים נוספים
-     const nav = useNavigate()
-
-     //פונקציה הנקראת בעת לחיצה על מתכון
-     function send(event) {
-         console.log(event)
- 
-         dis(chooseRecipe(event))
-         // ניתוב לקומפוננטת פרטים נוספים
-         nav(`/RecipeDetails`)
- 
-     }
 
 
-    return<>
-     <div className="recipe-container">
+    }
+
+
+
+    return <>
+       
+
+        {/* הצגת המתכונים לפי בחירת המשתמש */}
+        <div className="recipe-container">
             {list && list.map(x => {
-                if ((x.userId == user.id) ) {
+                if ((x.userId==user.id)) {
                     return (
                         <div key={x.id} className={`recipe-card ${x.categoryName}`}>
                             <p className="recipe-detail">{x.name}</p>
@@ -152,6 +158,8 @@ export const MyRecipies=()=>{
                 }
             })}
         </div>
+
+
 
     </>
 }

@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import api from './api';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { setUser } from '../redux/action';
+import { setIfManager, setUser } from '../redux/action';
 // import '../css/bootstrap.min.css'
 // import '../css/Login.css'
 import '../css/form.css'
@@ -12,6 +12,7 @@ export const Login = () => {
 
   //שליפת המשתמש הנוכחי
   const user = useSelector(u => { return u.user })
+  const manager = useSelector(m => { return m.manager })
   //משתנה שיעדכן מי המשתמש הנוכחי
   const dis = useDispatch()
   //משתנה המנתב לקומפוננטה הבאה
@@ -23,8 +24,13 @@ export const Login = () => {
 
   // פונקציה הבודקת האם המשתמש קיים ומנתבת בהתאם
   function send(event) {
-    event.preventDefault();
     debugger
+    event.preventDefault();
+    if (manager.email == emailRef.current.value && manager.password == passRef.current.value)
+      dis(setIfManager(true))
+    else
+      dis(setIfManager(false))
+    
     //קבלת המשתמש לפי מייל וסיסמה
     api.getUser(emailRef.current.value, passRef.current.value)
       .then(x => {
@@ -46,8 +52,13 @@ export const Login = () => {
       .catch(err => {
         console.log(err.message);
       });
-
-
+  }
+  //enter פונקציה הנקראת בעת לחיצה על המקשים ובודקת אם לחצו על המקש 
+  //send אם כן הפונקציה מזמנת את הפונקציה 
+  function handleKeyPress(event) {
+    if (event.key === 'Enter') {
+      send(event);
+    }
   }
 
   return <>
@@ -57,31 +68,25 @@ export const Login = () => {
 
       <div className="login">
 
-        <h1>Login</h1>
+        <h1>התחברות</h1>
 
         <form onSubmit={send} >
           <div className="input-box">
-            <input type="email" placeholder="מייל" ref={emailRef} required></input>
+            <input type="email" placeholder="מייל" ref={emailRef} required
+              onKeyPress={handleKeyPress}></input>
             <i class="fa fa-envelope"></i>
           </div>
 
           <div className="input-box">
-            <input type="password" placeholder="סיסמה" ref={passRef} required></input>
+            <input type="password" placeholder="סיסמה" ref={passRef} required
+              onKeyPress={handleKeyPress}></input>
             <i class="fa fa-lock"></i>
           </div>
 
 
-          <div className="rembar">
-            <input id="rembar" type="checkbox"></input>
-            <label for="rembar">remember me</label>
-          </div>
 
-          <button type='submit'>send</button>
+          <button type='submit'>כניסה</button>
 
-          <div className="links">
-            <a >Forgot password</a>
-            <a >You don't have an account</a>
-          </div>
 
         </form>
 

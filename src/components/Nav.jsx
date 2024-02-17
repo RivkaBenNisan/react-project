@@ -7,14 +7,18 @@ export const Nav = () => {
 
     //שליפת המשתמש הנוכחי
     const user = useSelector(u => { return u.user })
+    const ifManager = useSelector(i => { return i.ifManager })
 
     return <>
         <div className="nav" id="role">
             {/* הצגת אנונימי או שם המשתמש */}
             <div id="roleName">
-            {user.id && <p>{user.firstName} {user.lastName}</p>}
-            {!user.id && <p>אנונימי</p>}
+                {ifManager && <p>מנהל</p>}
+                {!ifManager && user.id && <p>{user.firstName} {user.lastName}</p>}
+                {!user.id && <p>אנונימי</p>}
             </div>
+            {ifManager && <NavLink to={'/Categories'} className='link'>קטגוריות</NavLink>}
+            {ifManager && <NavLink to={'/Levels'} className='link'>רמות</NavLink>}
             {/* הצגת פרטים אישיים רק אם המשתמש כבר רשום */}
             {user.id && <NavLink to={'/MyDetails'} className='link'>איזור אישי</NavLink>}
             <NavLink to={'/Home'} className='link'>דף הבית</NavLink>

@@ -29,9 +29,9 @@ export default {
     },
 
     //Level
-    addalevel: (level) => {
-        return axios.post(`https://localhost:7130/api/Category`, level)
-        
+    addlevel: async(level) => {
+        const r= await axios.post(`https://localhost:7130/api/Level        `, level)
+        return r
     },
 
     getLevels: () => {
@@ -51,8 +51,11 @@ export default {
     },
 
     //Recipe
-    addRecipe: (recipe) => {
-        return axios.post(`https://localhost:7130/api/Recipe`, recipe)
+    addRecipe: async(recipe) => {
+        debugger
+        const r=await axios.post(`https://localhost:7130/api/Recipe`, recipe)
+        debugger
+        return r
         
     },
 
@@ -72,9 +75,10 @@ export default {
 
 
     //CommentsToRecepy
-    addCommentsToRecepy: (commentsToRecepy) => {
+    addCommentsToRecepy:async (commentsToRecepy) => {
         debugger
-        const r= axios.get(`https://localhost:7130/api/CommentsToRecepy`, commentsToRecepy)
+        const r= await axios.post(`https://localhost:7130/api/CommentsToRecipe`, commentsToRecepy)
+        debugger
         return r
     },
 

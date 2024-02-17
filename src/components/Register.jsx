@@ -5,7 +5,7 @@ import { useNavigate } from "react-router"
 import { useDispatch, useSelector } from "react-redux"
 import { setUser } from "../redux/action"
 import swal from "sweetalert"
-import '../css/bootstrap.min.css'
+// import '../css/bootstrap.min.css'
 // import '../css/Register.css'
 import '../css/form.css'
 
@@ -24,7 +24,8 @@ export const Register = () => {
     const emailRef = useRef()
     const passRef = useRef()
     //פונקציה השומרת את הנתונים שהמשתמש הכניס
-    function send() {
+    function send(event) {
+        event.preventDefault();
         api.getUser(emailRef.current.value, passRef.current.value)
             .then(x => {
                 // אם כבר יש משתמש עם מייל וסיסמא כמו שהמשתמש הכניס
@@ -56,6 +57,14 @@ export const Register = () => {
                 console.log(err.message);
             });
     }
+    
+    //enter פונקציה הנקראת בעת לחיצה על המקשים ובודקת אם לחצו על המקש 
+    //send אם כן הפונקציה מזמנת את הפונקציה 
+    function handleKeyPress(event) {
+        if (event.key === 'Enter') {
+            send(event);
+        }
+    }
 
     return <>
         {/* טופס הרשמה */}
@@ -63,43 +72,33 @@ export const Register = () => {
 
             <div className="login">
 
-                <h1>Register</h1>
+                <h1>רישום למערכת</h1>
 
-                <form action="" >
+                <form onSubmit={send} >
 
 
                     <div class="input-box">
-                        <input type="text" placeholder="שם משפחה" ref={lastRef} required></input>
+                        <input type="text" placeholder="שם משפחה" ref={lastRef} required onKeyPress={handleKeyPress}></input>
                         <i class="fa fa-lock"></i>
                     </div>
 
                     <div class="input-box">
-                        <input type="text" placeholder="שם פרטי" ref={firstRef} required></input>
+                        <input type="text" placeholder="שם פרטי" ref={firstRef} required onKeyPress={handleKeyPress}></input>
                         <i class="fa fa-lock"></i>
                     </div>
 
 
                     <div className="input-box">
-                        <input type="email" placeholder="מייל" ref={emailRef} required></input>
+                        <input type="email" placeholder="מייל" ref={emailRef} required onKeyPress={handleKeyPress}></input>
                         <i class="fa fa-envelope"></i>
                     </div>
 
                     <div className="input-box">
-                        <input type="password" placeholder="סיסמה" ref={passRef} required></input>
+                        <input type="password" placeholder="סיסמה" ref={passRef} required onKeyPress={handleKeyPress}></input>
                         <i class="fa fa-lock"></i>
                     </div>
 
-                    <div className="rembar">
-                        <input id="rembar" type="checkbox"></input>
-                        <label for="rembar">remember me</label>
-                    </div>
-
-                    <button onClick={send}>send</button>
-
-                    <div className="links">
-                        <a >Forgot password</a>
-                        <a >You don't have an account</a>
-                    </div>
+                    <button type='submit'>הרשמה</button>
 
                 </form>
 

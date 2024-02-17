@@ -7,5 +7,8 @@ export const setUser = (user) => {
 export const chooseRecipe = (recipe) => {
     return { type: 'CHOOSE_RECIPE', payload: recipe }
 }
+export const setIfManager = (is) => {
+    return { type: 'SET_IF_MANAGER', payload: is }
+}
 
 
