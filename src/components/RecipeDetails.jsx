@@ -2,7 +2,7 @@ import { useSelector } from "react-redux"
 import '../css/RecipeDetails.css'
 import { Outlet, useNavigate } from "react-router"
 import { Button } from "@mui/material"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import api from "./api"
 
 export const RecipeDetails = () => {
@@ -10,6 +10,7 @@ export const RecipeDetails = () => {
     const recipe = useSelector(r => { return r.recipe })
     console.log(recipe);
     const [list, setList] = useState()
+    const [ingridients, setIngridients] = useState()
     const [show, setShow] = useState(false)
     const [showComments, setShowComments] = useState(false);
     const nav = useNavigate()
@@ -28,7 +29,24 @@ export const RecipeDetails = () => {
     }
 
 
+    useEffect(() => {
+        debugger
+        api.getIngredientsToRecipe(recipe.id)
 
+            // תופס הצלחה
+            .then(x => {
+                debugger
+                // x = האובייקט שחזר מהשרת
+                // data הנתונים נמצאים בתוך 
+                console.log(x.status);
+                setIngridients(x.data)
+            })
+            // תופס כשלון
+            .catch(err => {
+                debugger
+                console.log(err.message);
+            })
+    }, [])
 
 
     const toggleComments = () => {
@@ -147,12 +165,12 @@ export const RecipeDetails = () => {
                         <div class="ingredientsBlock">
                             <h3 class="ingredientsHead">:החומרים</h3>
                             <ul>
-                                <li><strong>1</strong> package Original Sausage Crumbles</li>
-                                {/* <li><strong>2</strong> cups &lpar;8 ounces&rpar; shredded Mexican Cheese Blend</li>
-                                <li><strong><sup>1</sup>&sol;<sub>2</sub></strong> cup mayonnaise</li>
-                                <li><strong><sup>1</sup>&sol;<sub>2</sub></strong> cup sour cream</li>
-                                <li><strong>1</strong> can &lpar;4 ounces&rpar; chopped green chilies, drained</li>
-                                <li><strong>1</strong> lb. round bread loaf</li> */}
+                                {/* <li><strong>1</strong> package Original Sausage Crumbles</li> */}
+                                {ingridients && ingridients.map(x =>
+                                    <li key={x.id}>
+                                        <p>{x.ingredientName} {x.amount} {x.name}</p>
+                                    </li>
+                                )}
                             </ul>
                         </div>
                     </div>

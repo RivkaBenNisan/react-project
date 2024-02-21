@@ -250,3 +250,15 @@ a {
   color: #fff;
 }
 
+/* קומפוננטת רכיבי המתכון */
+.labelIngredients{
+  color: #fff;
+  font-size: xx-large;
+  margin-left: -123px;
+}
+.amount{
+  /* text-align: center; */
+  margin-right: 200px;
+  width: 151px;
+  margin-left: 20%;
+}

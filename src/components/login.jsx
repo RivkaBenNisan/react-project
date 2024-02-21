@@ -62,7 +62,6 @@ export const Login = () => {
   }
 
   return <>
-
     {/* טופס כניסה */}
     <div className="container">
 
@@ -82,16 +81,9 @@ export const Login = () => {
               onKeyPress={handleKeyPress}></input>
             <i class="fa fa-lock"></i>
           </div>
-
-
-
           <button type='submit'>כניסה</button>
-
-
         </form>
-
       </div>
-
     </div >
 
 

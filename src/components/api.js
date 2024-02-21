@@ -68,9 +68,11 @@ export default {
         return axios.post(`https://localhost:7130/api/IngredientsToRecipe`, ingredientsToRecipe)
     },
 
-    getIngredientsToRecipe: (recipeId) => {
-        return axios.get(`https://localhost:7130/api/IngredientsToRecipe${recipeId}`)
-        
+    getIngredientsToRecipe: async(recipeId) => {
+        debugger
+        const r= await axios.get(`https://localhost:7130/api/IngredientsToRecipe/${recipeId}`)
+        debugger
+        return r
     },
 
 

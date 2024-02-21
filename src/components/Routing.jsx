@@ -12,6 +12,7 @@ import { MyRecipies } from "./MyRecipies"
 import { AddRecipe } from "./AddRecipe"
 import { Categories } from "./Categories"
 import { Levels } from "./Levels"
+import { AddIngredientsToRecipe } from "./AddIngridientsToRecipe"
 
 
 export const Routing = () => {
@@ -33,6 +34,7 @@ export const Routing = () => {
             <Route path="AddRecipe" element={<AddRecipe></AddRecipe>}></Route>
             <Route path="Categories" element={<Categories></Categories>}></Route>
             <Route path="Levels" element={<Levels></Levels>}></Route>
+            <Route path="AddIngredientsToRecipe/:id" element={<AddIngredientsToRecipe></AddIngredientsToRecipe>}></Route>
         </Routes>
     </>
 }

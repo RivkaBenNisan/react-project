@@ -12,3 +12,9 @@ export const setIfManager = (is) => {
 }
 
 
+export const setChekedList = (checked) => {
+    debugger
+    return { type: 'SET_CHEKED', payload: checked }
+}
+
+

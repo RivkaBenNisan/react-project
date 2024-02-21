@@ -149,19 +149,10 @@ export const AllRecipies = () => {
     }
 
 
-
-
-
-
-
-
-    ////////////////////////////
-    
-
     return <>
-        <div>
+        <div className='div_select'>
             {/* חיפוש על פי עורך  */}
-            <FormControl sx={{ m: 1, minWidth: 250 }}>
+            <FormControl sx={{ m: 1, minWidth: 250 }} className='selectB'>
                 <InputLabel >חיפוש מתכון על פי עורך</InputLabel>
                 <Select
                     // labelId="demo-simple-select-helper-label"
@@ -184,7 +175,7 @@ export const AllRecipies = () => {
             </FormControl>
 
             {/*  חיפוש על פי קטגוריה*/}
-            <FormControl sx={{ m: 1, minWidth: 250 }}>
+            <FormControl sx={{ m: 1, minWidth: 250 }} className='selectB'>
                 <InputLabel >חיפוש מתכון על פי קטגוריה
                 </InputLabel>
                 <Select
@@ -207,9 +198,10 @@ export const AllRecipies = () => {
             </FormControl>
 
             {/* חיפוש מתכון על פי רמת קושי */}
-            <FormControl sx={{ m: 1, minWidth: 250 }}>
+            <FormControl sx={{ m: 1, minWidth: 250 }} className='selectB'>
                 <InputLabel >חיפוש מתכון על פי רמת קושי</InputLabel>
                 <Select
+                
                     // labelId="demo-simple-select-helper-label"
                     id="demo-simple-select-helper"
                     label="חיפוש מתכון על פי רמת קושי"
@@ -221,7 +213,7 @@ export const AllRecipies = () => {
                     </MenuItem>
                     {/* שליפת כל הרמות */}
                     {levels && levels.map(x =>
-                        <MenuItem value={x.id}>
+                        <MenuItem className='selectB' value={x.id}>
                             {x.name}
                         </MenuItem>
                     )}
@@ -234,34 +226,36 @@ export const AllRecipies = () => {
             {list && list.map(x => {
                 if ((x.userId === ByUser || !ByUser) && (x.categoryId === ByCategory || !ByCategory) && (x.levelId === ByLevel || !ByLevel)) {
                     return (
-                        <div key={x.id} className={`recipe-card ${x.categoryName}`}>
-                            <p className="recipe-detail">{x.name}</p>
-                            <p className="recipe-detail">{x.userName}</p>
+                        <div key={x.id} className={`${x.categoryName} recipe-card`}>
+                            <div className='login'>
+                               
+                                <h1 className='change'  id='recipeName'>{x.name}</h1>
+                                <h1>{x.userName}</h1>
 
-                            <ImageButton onClick={() => { send(x) }}
-                                focusRipple
-                                key={x.id}
-                            >
-                                <ImageSrc style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/${x.pic})` }} />
-                                <ImageBackdrop className="MuiImageBackdrop-root" />
-                                <Image>
-                                    <Typography
-                                        component="span"
-                                        variant="subtitle1"
-                                        color="inherit"
-                                        sx={{
-                                            position: 'relative',
-                                            p: 4,
-                                            pt: 2,
-                                            pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
-                                        }}
-                                    >
-                                        פרטי המתכון
-                                        <ImageMarked className="MuiImageMarked-root" />
-                                    </Typography>
-                                </Image>
-                            </ImageButton>
-                            {/* <img className="recipe-image" src={`${process.env.PUBLIC_URL}/images/${x.pic}`} alt="Recipe" /> */}
+                                <ImageButton onClick={() => { send(x) }}
+                                    focusRipple
+                                    key={x.id}
+                                >
+                                    <ImageSrc style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/${x.pic})` }} />
+                                    <ImageBackdrop className="MuiImageBackdrop-root" />
+                                    <Image>
+                                        <Typography
+                                            component="span"
+                                            variant="subtitle1"
+                                            color="inherit"
+                                            sx={{
+                                                position: 'relative',
+                                                p: 4,
+                                                pt: 2,
+                                                pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
+                                            }}
+                                        >
+                                            פרטי המתכון
+                                            <ImageMarked className="MuiImageMarked-root" />
+                                        </Typography>
+                                    </Image>
+                                </ImageButton>
+                            </div>
                         </div>
                     );
                 } else {
@@ -270,6 +264,22 @@ export const AllRecipies = () => {
             })}
         </div>
 
+
+ {/* <!-- לינקים עבור הצגת המתכונים  --> */}
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    {<script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>}
+    {<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"></script>}
+    {<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"></script>}
 
     </>
 }

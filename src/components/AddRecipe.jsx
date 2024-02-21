@@ -1,26 +1,32 @@
 import { useEffect, useRef, useState } from "react"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import api from "./api"
 import swal from "sweetalert"
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material"
 import '../css/form.css'
+import { AddIngredientsToRecipe } from "./AddIngridientsToRecipe"
+import { useNavigate } from "react-router"
+import { setChekedList } from "../redux/action"
 
 export const AddRecipe = () => {
     const [category, setCategory] = useState()
     const [categories, setCategories] = useState()
     const [levels, setLevels] = useState()
-    const [level, setLevel] = useState()
+    const [levelId, setLevelId] = useState()
     const [ingredients, setIngredients] = useState()
-    const [checked,setCheked]=useState([])
+    const [checked, setCheked] = useState()
+    //let checked=[]
     //שליפת המשתמש הנוכחי
     const user = useSelector(u => { return u.user })
-
+    const nav = useNavigate()
     //העברת נתונים מהטופס על ידי מצביע
     const nameRef = useRef()
     const picRef = useRef()
     const instRef = useRef()
     const timeRef = useRef()
     const noteRef = useRef()
+
+    const dis=useDispatch()
 
     useEffect(() => {
         // שליפת כל הקטגוריות
@@ -43,11 +49,15 @@ export const AddRecipe = () => {
             .then(x => { setIngredients(x.data) })
             // תופס כשלון
             .catch(err => { console.log(err.message); })
-        
+
 
     });
 
+    // function addIngidients(recipeId){
 
+
+
+    // }
 
 
     //פונקציה השומרת את הנתונים שהמשתמש הכניס
@@ -55,6 +65,10 @@ export const AddRecipe = () => {
         event.preventDefault();
 
         debugger
+        console.log(category);
+        const categoryName = categories.find(x => x.id == category)
+        const level = levels.find(x => x.id == levelId)
+        console.log(categoryName);
         //יצירת המתכון מהטופס
         const r = {
             name: nameRef.current.value,
@@ -62,18 +76,24 @@ export const AddRecipe = () => {
             instructions: instRef.current.value,
             preparationTime: timeRef.current.value,
             userId: user.id,
-            categoryName: category.id,
+            categoryId: category,
+            categoryName: categoryName.name,
             levelId: level.id,
+            levelName: level.name,
             note: noteRef.current.value
 
         }
-        
+
         api.addRecipe(r).then((y) => {
-            
-            console.log(y);
-            alert(y);
             debugger
-            
+            console.log(checked);
+            debugger
+            dis(setChekedList(checked))
+            debugger
+           // setCheked(checked)
+            nav(`/AddIngredientsToRecipe/${y.data}`)
+
+
         }).catch(error => {
             // console.error(error);
             alert("שגיאה בהוספת מתכון");
@@ -81,18 +101,39 @@ export const AddRecipe = () => {
 
     }
     function changeGrid(event) {
-        // console.log(event)
-        // alert(event.id)
         debugger
-    //    checked.find(t=>{})
-    //    if(!t)
-       setCheked(...checked,event.id)
-    // else
-    // {
-        // checked.remove(t)
-    // }
+        let t
+        if (checked) {
+            t = checked.findIndex(x => event.target.id == x)
+            if (t != -1) {
+                debugger
+                const start = [...checked.slice(0, t)]
+                const end = [...checked.slice(t + 1)]
+                setCheked([...start, ...end])
+                debugger
+                console.log(checked);
+            }
+            else {
+                debugger
+                setCheked([...checked, event.target.id])
+            }
+        }
+        else {
+            t = -1
+            setCheked([event.target.id])
+        }
+
+
         console.log(checked);
 
+    }
+
+
+    function select(e) {
+        debugger
+        console.log(e);
+
+        setCategory(e.target.value)
     }
     return <>
 
@@ -135,11 +176,10 @@ export const AddRecipe = () => {
 
                     {ingredients && ingredients.map(x =>
                         <div className="rembar left">
-                            <input id={x.id} type="checkbox" onChange={(e) => { changeGrid(e.target) }}></input>
+                            <input id={x.id} type="checkbox" name={x.name} onChange={(e) => changeGrid(e)}></input>
                             <label for={x.id}>{x.name}</label>
                         </div>
                     )}
-
 
                     <FormControl sx={{ m: 1, minWidth: 250 }} className="in_label left">
                         <InputLabel className="in_label">  קטגוריה</InputLabel>
@@ -148,7 +188,7 @@ export const AddRecipe = () => {
                             id="demo-simple-select-helper"
                             label="קטגוריה"
                             //שמירת הבחירה של קטגוריה  
-                            onChange={(e) => setCategory(e.target.value)}
+                            onChange={select}
                         >
                             <i className="fa fa-envelope"></i>
 
@@ -168,7 +208,7 @@ export const AddRecipe = () => {
                             id="demo-simple-select-helper"
                             label="רמת קושי"
                             //שמירת הבחירה של קטגוריה  
-                            onChange={(e) => setLevel(e.target.value)}
+                            onChange={(e) => setLevelId(e.target.value)}
                         >
                             {/* <i className="fa fa-envelope"></i> */}
 
@@ -180,18 +220,9 @@ export const AddRecipe = () => {
                             )}
                         </Select>
                     </FormControl>
-
-
-
-
-
-
                     <button type='submit'>הוספה</button>
-
                 </form>
-
             </div>
-
         </div >
 
         {/* <!-- לינקים עבור הוספת מתכון --> */}

@@ -6,7 +6,8 @@ const initialState = {
     user: {},
     recipe: {},
     manager: { email: "a@a", password: "1" },
-    ifManager: false
+    ifManager: false,
+    checked: []
 
 }
 const reducer = produce((state, action) => {
@@ -17,6 +18,11 @@ const reducer = produce((state, action) => {
             return { ...state, ifManager: action.payload }
         case 'CHOOSE_RECIPE':
             return { ...state, recipe: action.payload }
+        case 'SET_CHEKED':
+            {
+                debugger
+                return { ...state, checked: action.payload }
+            }
         default:
             break;
     }
