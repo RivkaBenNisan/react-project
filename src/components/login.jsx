@@ -72,13 +72,13 @@ export const Login = () => {
         <form onSubmit={send} >
           <div className="input-box">
             <input type="email" placeholder="מייל" ref={emailRef} required
-              onKeyPress={handleKeyPress}></input>
+             className='thePlaceholder' onKeyPress={handleKeyPress}></input>
             <i class="fa fa-envelope"></i>
           </div>
 
           <div className="input-box">
             <input type="password" placeholder="סיסמה" ref={passRef} required
-              onKeyPress={handleKeyPress}></input>
+             className='thePlaceholder' onKeyPress={handleKeyPress}></input>
             <i class="fa fa-lock"></i>
           </div>
           <button type='submit'>כניסה</button>

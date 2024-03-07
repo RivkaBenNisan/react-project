@@ -7,7 +7,7 @@ const initialState = {
     recipe: {},
     manager: { email: "a@a", password: "1" },
     ifManager: false,
-    checked: []
+    checked: {}
 
 }
 const reducer = produce((state, action) => {

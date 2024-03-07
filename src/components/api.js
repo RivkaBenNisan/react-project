@@ -64,12 +64,14 @@ export default {
     },
 
     //IngredientsToRecipe
-    addIngredientsToRecipe: (ingredientsToRecipe) => {
-        return axios.post(`https://localhost:7130/api/IngredientsToRecipe`, ingredientsToRecipe)
+    addIngredientsToRecipe: async(ingredientsToRecipe) => {
+        debugger
+        const r= await axios.post(`https://localhost:7130/api/IngredientsToRecipe`, ingredientsToRecipe)
+        debugger
+        return r
     },
 
     getIngredientsToRecipe: async(recipeId) => {
-        debugger
         const r= await axios.get(`https://localhost:7130/api/IngredientsToRecipe/${recipeId}`)
         debugger
         return r

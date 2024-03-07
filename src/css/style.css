@@ -42,19 +42,7 @@ p{
 
 /*הסרגל div עיצוב  */
 .nav {
-  /* background: linear-gradient(to right, #ff6666, #ff9933, #ffff66, #66ff66, #66ccff, #9933ff, #397693, #49ab7a, #e379c2,  #e3797e, #ff6666); */
-  /* background: linear-gradient(to right, 
-          #ffe6ea, #ffd9e0, #ffccd6, #ffbfcc, #ffb2c2, #ffa5b8,
-          #ff99ae, #ff8ca4, #ff7f9a, #ff7290, #ff6586, #ff587c,
-          #ff4c72, #ff3f68, #ff326e, #ff2564, #ff185a, #ff0b50,
-          #ff003f, #ff004b, #ff0057, #ff0063, #ff006f, #ff007b,
-          #ff0087, #ff0093, #ff009f, #ff00ab, #ff00b7, #ff00c3,
-          #ff00cf, #ff00db, #ff00e7, #ff00f3, #ff00ff, #f300ff,
-          #e700ff, #db00ff, #cf00ff, #c300ff, #b700ff, #ab00ff,
-          #9f00ff, #9300ff, #8700ff, #7b00ff
-         ); */
-
-  background: linear-gradient(to right,
+  /* background: linear-gradient(to right,
       #fff1f3, #ffe8ec, #ffdee4, #ffd6dc, #ffced4, #ffc6cc,
       #ffbec4, #ffb6bc, #ffadb4, #ffa5ac, #ff9da4, #ff959c,
       #ff8d94, #ff858c, #ff7d84, #ff757c, #ff6d74, #ff656c,
@@ -70,8 +58,8 @@ p{
       #00f7ff, #00ffff, #00f3ff, #00e7ff, #00dbff, #00cfff,
       #00c3ff, #00b7ff, #00abff, #009fff, #0093ff, #0087ff,
       #007bff,
-      #eaf8ff);
-
+      #eaf8ff); */
+      background: linear-gradient(to right, #3498db, #9b59b6);
 
   /* מהירות מעבר הצבעים */
   transition: background-color 5s;

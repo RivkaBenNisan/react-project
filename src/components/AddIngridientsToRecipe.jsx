@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { useSelector } from "react-redux"
-import { useParams } from "react-router"
+import { useNavigate, useParams } from "react-router"
 import api from "./api"
 import { ClassNames } from "@emotion/react"
 
@@ -10,10 +10,33 @@ export const AddIngredientsToRecipe = () => {
     const checked = useSelector(c => { return c.checked })
     //מערך המכיל את כל הרכיבים הקיימים
     const [ingredients, setIngredients] = useState()
+    const nav = useNavigate()
     //של הרכיבים שהמשתמש בחר name ואת ה id המכיל את ה json אובייקט 
-    const [jsonIngredients, setJsonIngredients] = useState([])
+    // const [jsonIngredients, setJsonIngredients] = useState([])
 
-    const timeRef = useRef()
+    // function setMyList() {
+    //     debugger
+    //     checked.forEach(x => {
+    //         const n = ingredients.find(ingredient => ingredient.id == x)?.name
+    //         const ing={
+    //             id: x,
+    //             name: n
+    //         }
+    //         setJsonIngredients(...jsonIngredients,ing)
+    //     });
+
+
+    // השארת הרכיבים שהמשתמש בחר
+    //  const selectedIngredients = ingredients.filter(ingredient => checked.includes(ingredient.id));
+
+    //  const selectedJsonIngredients = selectedIngredients.map(ingredient => {
+    //      return {
+    //          id: ingredient.id,
+    //          name: ingredient.name
+    //      };
+    //  });
+    //  setJsonIngredients(selectedJsonIngredients);
+
 
     useEffect(() => {
         api.getIngredient()
@@ -30,31 +53,45 @@ export const AddIngredientsToRecipe = () => {
 
                 console.log(err.message);
             })
+
+
+
+        // setMyList()
     }, [])
 
     // fffffffffffffffff
     function changeGrid() {
+        debugger
 
     }
-    function add(e) {
+    async function add(e) {
         e.preventDefault();
-        console.log(e.target[0].value)
-        console.log(e.target[1].value)
         for (let i = 0; i < checked.length; i++) {
             debugger
-            console.log(e.target[i].value)
+            const ing = [{
+                recipeId: parseInt(params.id),
+                ingredientId: parseInt(checked[i].id),
+                ingredientName: checked[i].name,
+                amount: e.target[i].value
+            }]
+            console.log(ing)
+            await api.addIngredientsToRecipe(ing).then(x => {
+
+                // x = האובייקט שחזר מהשרת
+                // data הנתונים נמצאים בתוך 
+                console.log("הצליח");
+                
+
+            })
+                // תופס כשלון
+                .catch(err => {
+
+                    console.log("לא הצליח");
+                })
         }
         debugger
-        // השארת הרכיבים שהמשתמש בחר
-        // const selectedIngredients = ingredients.filter(ingredient => checked.includes(ingredient.id));
+        nav("/Home")
 
-        // const selectedJsonIngredients = selectedIngredients.map(ingredient => {
-        //     return {
-        //         id: ingredient.id,
-        //         name: ingredient.name
-        //     };
-        // });
-        // setJsonIngredients(selectedJsonIngredients);
     }
 
     return <>
@@ -72,22 +109,17 @@ export const AddIngredientsToRecipe = () => {
                     {checked && checked.map(x =>
 
                         <div className="input-box">
-                            <input id={x} type="text" name={x} placeholder="כמות" ref={timeRef}
-                                className="amount" required onChange={(e) => changeGrid(e)}
+                            <input id={x.id} type="text" name={x.id} placeholder="כמות"
+                                className="thePlaceholder amount" required
                             ></input>
-                            <label className="labelIngredients" for={x}>
-                                {ingredients && ingredients.find(ingredient => ingredient.id == x)?.name}
+                            <label className="labelIngredients" for={x.id}>
+                                {x.name}
                             </label>
                             {/* <i class="fa fa-envelope"></i> */}
                         </div>
                     )}
 
-                    {/* {ingredients && ingredients.map(x =>
-                        <div className="rembar left">
-                            <input id={x.id} type="text" name={x.name} onChange={(e) => changeGrid(e)}></input>
-                            <label for={x.id}>{x.name}</label>
-                        </div>
-                    )} */}
+
 
                     <button type='submit'>הוספה</button>
                 </form>

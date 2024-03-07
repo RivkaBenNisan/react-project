@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import api from "./api"
 import { Button } from "@mui/material"
+import '../css/form.css'
 
 export const Categories = () => {
 
@@ -23,34 +24,76 @@ export const Categories = () => {
                 console.log(err.message);
             })
     }, [])
-    // פונקציה המוסיפה תגובה
-    function add() {
+    // פונקציה המוסיפה קטגוריה
+    function add(event) {
+        event.preventDefault();
         debugger
         const c = {
             name: nameRef.current.value
         }
         console.log(c);
         api.addCategory(c).then((y) => {
-            alert("הקטגוריה נוספה בהצלחה")
+            // alert("הקטגוריה נוספה בהצלחה")
             setCategories(y.data)
         }).catch(error => {
-            
+
             alert("שגיאה בהוספת הקטגוריה");
         });
+        nameRef.current.value = ""
 
     }
-    return <>
-        {categories && categories.map(x =>
-            <div key={x.id}>
-                <p>{x.name}</p>
-            </div>
-        )}
-        <div className="add-comment-section">
-            <input type='text' placeholder="קטגוריה חדשה" className='comment-input' ref={nameRef}></input>
 
-            <Button variant="contained" className="submit-comment-button" onClick={() => add()}>
-                הוסף
-            </Button>
-        </div>
+    //enter פונקציה הנקראת בעת לחיצה על המקשים ובודקת אם לחצו על המקש 
+    //send אם כן הפונקציה מזמנת את הפונקציה 
+    function handleKeyPress(event) {
+        if (event.key === 'Enter') {
+            add(event);
+        }
+    }
+    return <>
+
+        {/* טופס הוספת רמה */}
+        <div className="container">
+
+            <div className="login">
+
+                <h1>:כל הקטגוריות</h1>
+                {categories && categories.map(x =>
+                    <div key={x.id}>
+                        <p className="p">{x.name}</p>
+                    </div>
+                )}
+
+                <form onSubmit={add} >
+                    <div className="input-box">
+                        <input type="text" placeholder="קטגוריה חדשה" ref={nameRef} className="thePlaceholder"
+                            onKeyPress={handleKeyPress}></input>
+                        <i class="fa fa-envelope"></i>
+                    </div>
+
+                    <button type='submit' className="add">הוסף</button>
+                </form>
+            </div>
+        </div >
+
+
+
+
+        {/* <!-- לינקים עבור הוספת קטגוריה --> */}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" />
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+        {<script
+            src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+        </script>}
+        {<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>}
+        {<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>}
+
     </>
 }

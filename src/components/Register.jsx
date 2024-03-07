@@ -78,23 +78,23 @@ export const Register = () => {
 
 
                     <div class="input-box">
-                        <input type="text" placeholder="שם משפחה" ref={lastRef} required onKeyPress={handleKeyPress}></input>
+                        <input type="text" placeholder="שם משפחה" ref={lastRef} required onKeyPress={handleKeyPress} className='thePlaceholder'></input>
                         <i class="fa fa-lock"></i>
                     </div>
 
                     <div class="input-box">
-                        <input type="text" placeholder="שם פרטי" ref={firstRef} required onKeyPress={handleKeyPress}></input>
+                        <input type="text" placeholder="שם פרטי" ref={firstRef} required onKeyPress={handleKeyPress} className='thePlaceholder'></input>
                         <i class="fa fa-lock"></i>
                     </div>
 
 
                     <div className="input-box">
-                        <input type="email" placeholder="מייל" ref={emailRef} required onKeyPress={handleKeyPress}></input>
+                        <input type="email" placeholder="מייל" ref={emailRef} required onKeyPress={handleKeyPress} className='thePlaceholder'></input>
                         <i class="fa fa-envelope"></i>
                     </div>
 
                     <div className="input-box">
-                        <input type="password" placeholder="סיסמה" ref={passRef} required onKeyPress={handleKeyPress}></input>
+                        <input type="password" placeholder="סיסמה" ref={passRef} required onKeyPress={handleKeyPress} className='thePlaceholder'></input>
                         <i class="fa fa-lock"></i>
                     </div>
 

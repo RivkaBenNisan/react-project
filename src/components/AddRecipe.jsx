@@ -15,6 +15,7 @@ export const AddRecipe = () => {
     const [levelId, setLevelId] = useState()
     const [ingredients, setIngredients] = useState()
     const [checked, setCheked] = useState()
+    const [jsonIngredients, setJsonIngredients] = useState([])
     //let checked=[]
     //שליפת המשתמש הנוכחי
     const user = useSelector(u => { return u.user })
@@ -26,7 +27,7 @@ export const AddRecipe = () => {
     const timeRef = useRef()
     const noteRef = useRef()
 
-    const dis=useDispatch()
+    const dis = useDispatch()
 
     useEffect(() => {
         // שליפת כל הקטגוריות
@@ -87,10 +88,28 @@ export const AddRecipe = () => {
         api.addRecipe(r).then((y) => {
             debugger
             console.log(checked);
+
             debugger
-            dis(setChekedList(checked))
+            {
+                checked && checked.forEach(x => {
+                    debugger
+                    const n = ingredients.find(ingredient => ingredient.id == x)?.name
+                    const ing = {
+                        id: x,
+                        name: n
+                    }
+                    let arr = jsonIngredients
+                    arr.push(ing)
+                    // setJsonIngredients([...jsonIngredients, ing])
+                    setJsonIngredients(arr)
+                    debugger
+                });
+            }
+
+
+            dis(setChekedList(jsonIngredients))
             debugger
-           // setCheked(checked)
+            // setCheked(checked)
             nav(`/AddIngredientsToRecipe/${y.data}`)
 
 
@@ -128,12 +147,42 @@ export const AddRecipe = () => {
 
     }
 
-
     function select(e) {
         debugger
         console.log(e);
 
         setCategory(e.target.value)
+    }
+
+    // שם הרכיב החדש שהכניסו
+    const nameIngRef = useRef()
+
+    // פונקציה המוסיפה רכיב
+    function addIng(event) {
+        event.preventDefault();
+        debugger
+        const l = {
+            name: nameIngRef.current.value
+        }
+        console.log(l);
+        api.addIngredient(l).then((y) => {
+            // alert("הרמה נוספה בהצלחה")
+            setIngredients(y.data)
+            nameIngRef.current.value = ""
+        }).catch(error => {
+
+            alert("שגיאה בהוספת הרכיב");
+        });
+        // 
+       
+
+    }
+    //enter פונקציה הנקראת בעת לחיצה על המקשים ובודקת אם לחצו על המקש 
+    //send אם כן הפונקציה מזמנת את הפונקציה 
+    function handleKeyPress(event) {
+        if (event.key === 'Enter') {
+            addIng(event);
+        }
     }
     return <>
 
@@ -148,43 +197,41 @@ export const AddRecipe = () => {
 
 
                     <div class="input-box right">
-                        <input type="text" placeholder="שם המתכון" ref={nameRef} required></input>
+                        <input type="text" placeholder="שם המתכון" ref={nameRef}
+                            required className='thePlaceholder'></input>
                         <i class="fa fa-lock"></i>
                     </div>
 
                     <div class="input-box right">
-                        <input type="text" placeholder="שם התמונה" ref={picRef}></input>
+                        <input type="text" placeholder="שם התמונה" ref={picRef}
+                            required className='thePlaceholder'></input>
                         <i class="fa fa-lock"></i>
                     </div>
 
 
                     <div className="input-box right">
-                        <input type="text" placeholder="זמן הכנה" ref={timeRef} required></input>
+                        <input type="text" placeholder="זמן הכנה" ref={timeRef}
+                            required className='thePlaceholder'></input>
                         <i class="fa fa-envelope"></i>
                     </div>
 
                     <div className="input-box right">
-                        <input type="text" placeholder="הוראות הכנה" ref={instRef} required></input>
+                        <input type="text" placeholder="הוראות הכנה" ref={instRef}
+                            required className='thePlaceholder'></input>
                         <i class="fa fa-envelope"></i>
                     </div>
 
                     <div className="input-box right">
-                        <input type="text" placeholder="הערות" ref={noteRef} required></input>
+                        <input type="text" placeholder="הערות" ref={noteRef}
+                            required className='thePlaceholder'></input>
                         <i class="fa fa-envelope"></i>
                     </div>
 
-
-                    {ingredients && ingredients.map(x =>
-                        <div className="rembar left">
-                            <input id={x.id} type="checkbox" name={x.name} onChange={(e) => changeGrid(e)}></input>
-                            <label for={x.id}>{x.name}</label>
-                        </div>
-                    )}
 
                     <FormControl sx={{ m: 1, minWidth: 250 }} className="in_label left">
-                        <InputLabel className="in_label">  קטגוריה</InputLabel>
+                        <InputLabel>  קטגוריה</InputLabel>
                         <Select
-                            className="input-box"
+                            // className="input-box"
                             id="demo-simple-select-helper"
                             label="קטגוריה"
                             //שמירת הבחירה של קטגוריה  
@@ -202,12 +249,12 @@ export const AddRecipe = () => {
                     </FormControl>
 
                     <FormControl sx={{ m: 1, minWidth: 250 }} className="in_label" left>
-                        <InputLabel className="in_label">  רמת קושי</InputLabel>
+                        <InputLabel>  רמת קושי</InputLabel>
                         <Select
-                            className="input-box"
+                            // className="input-box"
                             id="demo-simple-select-helper"
                             label="רמת קושי"
-                            //שמירת הבחירה של קטגוריה  
+                            //שמירת הבחירה של רמת הקושי  
                             onChange={(e) => setLevelId(e.target.value)}
                         >
                             {/* <i className="fa fa-envelope"></i> */}
@@ -220,6 +267,24 @@ export const AddRecipe = () => {
                             )}
                         </Select>
                     </FormControl>
+
+                    {ingredients && ingredients.map(x =>
+                        <div className="rembar left">
+                            <input id={x.id} type="checkbox" name={x.name} onChange={(e) => changeGrid(e)}></input>
+                            <label for={x.id} id="myCheck">{x.name}</label>
+                        </div>
+                    )}
+
+                    {/* הוספת רכיב חדש */}
+
+                    <div className="input-box">
+                        <input type="text" placeholder="הוספת רכיב חדש" ref={nameIngRef} id="newIng" className="thePlaceholder"
+                            onKeyPress={handleKeyPress}></input>
+                        <i class="fa fa-envelope"></i>
+                        <button type='button' onClick={addIng} id="myIng">הוסף</button>
+
+                    </div>
+
                     <button type='submit'>הוספה</button>
                 </form>
             </div>
