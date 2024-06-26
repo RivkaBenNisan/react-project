@@ -2,29 +2,29 @@ import axios from "axios"
 
 export default {
     //users
-    addUser: (user) => {
-        return axios.post(`https://localhost:7130/api/User`, user)
+    addUser:async (user) => {
+        return await axios.post(`https://localhost:7130/api/User`, user)
         
     },
 
-    getUser: (email, password) => {
-        return axios.get(`https://localhost:7130/api/User/${email}/${password}`)
+    getUser: async(email, password) => {
+        return await axios.get(`https://localhost:7130/api/User/${email}/${password}`)
         
     },
 
-    getUsers: () => {
-        return axios.get(`https://localhost:7130/api/User`)
+    getUsers: async() => {
+        return await axios.get(`https://localhost:7130/api/User`)
     },
 
     //Categories
-    addCategory: (name) => {
-        return axios.post(`https://localhost:7130/api/Category`, name)
+    addCategory:async (name) => {
+        return await axios.post(`https://localhost:7130/api/Category`, name)
         
     },
 
-    getCategories: () => {
+    getCategories: async() => {
         
-        return axios.get(`https://localhost:7130/api/Category`)
+        return await axios.get(`https://localhost:7130/api/Category`)
        
     },
 
@@ -34,19 +34,19 @@ export default {
         return r
     },
 
-    getLevels: () => {
-        return axios.get(`https://localhost:7130/api/Level`)
+    getLevels: async() => {
+        return await axios.get(`https://localhost:7130/api/Level`)
        
     },
 
     //Ingredient
-    addIngredient: (ingredient) => {
-        return axios.post(`https://localhost:7130/api/Ingredient`, ingredient)
+    addIngredient: async(ingredient) => {
+        return await axios.post(`https://localhost:7130/api/Ingredient`, ingredient)
         
     },
 
-    getIngredient: () => {
-        return axios.get(`https://localhost:7130/api/Ingredient`)
+    getIngredient:async () => {
+        return await axios.get(`https://localhost:7130/api/Ingredient`)
         
     },
 
@@ -59,8 +59,8 @@ export default {
         
     },
 
-    getRecipe: () => {
-        return axios.get(`https://localhost:7130/api/Recipe`)
+    getRecipe:async () => {
+        return await axios.get(`https://localhost:7130/api/Recipe`)
     },
 
     //IngredientsToRecipe
@@ -86,8 +86,8 @@ export default {
         return r
     },
 
-    getCommentsToRecepy: (recipeId) => {
-        return axios.get(`https://localhost:7130/api/CommentsToRecipe/${recipeId}`)
+    getCommentsToRecepy: async(recipeId) => {
+        return await axios.get(`https://localhost:7130/api/CommentsToRecipe/${recipeId}`)
         
     },
 

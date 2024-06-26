@@ -1,36 +1,4 @@
 /* דף עיצוב כללי לכל הפרוייקט */
-
-
-/*בלבד  nav עיצוב העובד על */
-/* משנה בסרגל את הקומפוננטה שנמצאים בה כרגע */
-/* .active {
-    color: cadetblue;
-} */
-
-/* עיצוב המילים שבסרגל */
-/* .link {
-    color: beige;
-    font-size: larger;
-    text-decoration: none;
-    margin: 0.8rem 2rem;
-} */
-
-/*הסרגל div עיצוב  */
-/* #role{
-    background-color: black;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    padding: 1rem 0;
-    justify-content: center;
-    width: 100vw;
-    /////////////////////////////////height: 3rem;
-    margin-bottom: 2rem;
-}
-p{
-    color: bisque;
-} */
-
 /* style.css */
 
 /* עיצוב כללי לסרגל */
